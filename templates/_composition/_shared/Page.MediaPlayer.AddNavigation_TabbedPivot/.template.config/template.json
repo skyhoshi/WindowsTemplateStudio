@@ -9,7 +9,7 @@
     "type": "item",
     "wts.type": "composition",
     "wts.version": "1.0.0",
-    "wts.compositionFilter": "$framework != CodeBehind & $projectType == TabbedPivot & identity == wts.Page.MediaPlayer|wts.Page.MediaPlayer.CodeBehind"
+    "wts.compositionFilter": "$framework != CodeBehind|CaliburnMicro & $projectType == TabbedPivot & identity == wts.Page.MediaPlayer|wts.Page.MediaPlayer.CodeBehind"
   },
   "sourceName": "wts.ItemName",
   "preferNameDirectory": true,

@@ -3,10 +3,12 @@ Imports GalaSoft.MvvmLight
 Imports GalaSoft.MvvmLight.Command
 Imports wts.ItemName.Services
 Imports wts.ItemName.Views
+Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Namespace ViewModels
     Public Class ShellViewModel
         Inherits ViewModelBase
+
         Private Const PanoramicStateName As String = "PanoramicState"
         Private Const WideStateName As String = "WideState"
         Private Const NarrowStateName As String = "NarrowState"
@@ -20,6 +22,7 @@ Namespace ViewModels
         End Property
 
         Private _isPaneOpen As Boolean
+
         Public Property IsPaneOpen As Boolean
             Get
                 Return _isPaneOpen
@@ -36,12 +39,13 @@ Namespace ViewModels
                 Return _selected
             End Get
 
-            Set(ByVal value As Object)
+            Set(value As Object)
                 [Set](_selected, value)
             End Set
         End Property
 
         Private _displayMode As SplitViewDisplayMode = SplitViewDisplayMode.CompactInline
+
         Public Property DisplayMode As SplitViewDisplayMode
             Get
                 Return _displayMode
@@ -54,6 +58,7 @@ Namespace ViewModels
         Private _lastSelectedItem As Object
 
         Private _primaryItems As New ObservableCollection(Of ShellNavigationItem)()
+
         Public ReadOnly Property PrimaryItems As ObservableCollection(Of ShellNavigationItem)
             Get
                 Return _primaryItems
@@ -61,6 +66,7 @@ Namespace ViewModels
         End Property
 
         Private _secondaryItems As New ObservableCollection(Of ShellNavigationItem)()
+
         Public ReadOnly Property SecondaryItems As ObservableCollection(Of ShellNavigationItem)
             Get
                 Return _secondaryItems
@@ -68,6 +74,7 @@ Namespace ViewModels
         End Property
 
         Private _openPaneCommand As ICommand
+
         Public ReadOnly Property OpenPaneCommand As ICommand
             Get
                 If _openPaneCommand Is Nothing Then
@@ -81,10 +88,11 @@ Namespace ViewModels
         End Property
 
         Private _itemSelected As ICommand
+
         Public ReadOnly Property ItemSelectedCommand As ICommand
             Get
                 If _itemSelected Is Nothing Then
-                    _itemSelected = New RelayCommand(Of ItemClickEventArgs)(AddressOf ItemSelected)
+                    _itemSelected = New RelayCommand(Of HamburgetMenuItemInvokedEventArgs)(AddressOf ItemSelected)
                 End If
 
                 Return _itemSelected
@@ -92,6 +100,7 @@ Namespace ViewModels
         End Property
 
         Private _stateChangedCommand As ICommand
+
         Public ReadOnly Property StateChangedCommand As ICommand
             Get
                 If _stateChangedCommand Is Nothing Then
@@ -148,11 +157,11 @@ Namespace ViewModels
             ' Edit String/en-US/Resources.resw: Add a menu item title for each page
         End Sub
 
-        Private Sub ItemSelected(args As ItemClickEventArgs)
+        Private Sub ItemSelected(args As HamburgetMenuItemInvokedEventArgs)
             If DisplayMode = SplitViewDisplayMode.CompactOverlay OrElse DisplayMode = SplitViewDisplayMode.Overlay Then
                 IsPaneOpen = False
             End If
-            Navigate(args.ClickedItem)
+            Navigate(args.InvokedItem)
         End Sub
 
         Private Sub Frame_Navigated(sender As Object, e As NavigationEventArgs)
